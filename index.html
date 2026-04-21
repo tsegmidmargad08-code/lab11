@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Таниулдулга Веб</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#home">Миний үр чадвар</a>
+      <a href="#projects">Бүтээсэн төсөл</a>
+      <a href="#contact">Холбоо барих</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <h1>Сайн уу! <span>[Таны нэр]</span></h1>
+    <p>Таны үр чадвар, төслүүдийг танилцуулах миний веб сайт.</p>
+
+    <div class="skills-section">
+      <h2>Миний Үр Чадваруд</h2>
+      <div class="skills-grid">
+        <div class="skill-badge">HTML</div>
+        <div class="skill-badge">CSS</div>
+        <div class="skill-badge">JavaScript</div>
+        <div class="skill-badge">React</div>
+        <div class="skill-badge">Tailwind CSS</div>
+        <div class="skill-badge">PHP</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="projects-section" id="projects">
+    <h2>Бүтээсэн төсөл</h2>
+    <div class="project-card">
+      <h3>Төслийн нэр</h3>
+      <p>Төслийн тайлбар</p>
+    </div>
+    <div class="project-card">
+      <h3>Төслийн нэр</h3>
+      <p>Төслийн тайлбар</p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact-section" id="contact">
+    <h2>Холбоо барих</h2>
+    <p>Таны нэр:</p>
+    <form class="contact-form" onsubmit="submitForm(event)">
+      <input type="text" id="name" placeholder="" required />
+      <p>И-мэйл хаяг:</p>
+      <input type="email" id="email" placeholder="" required />
+      <p>Танилдулга:</p>
+      <textarea id="message" rows="3"></textarea>
+      <button type="submit">Илгээх</button>
+    </form>
+    <footer>© 2025 таниулдулга веб</footer>
+  </section>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

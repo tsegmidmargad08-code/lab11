@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Нэвтрэх - Админ</title>
+  <link rel="stylesheet" href="../css/admin.css"/>
+</head>
+<body class="login-page">
+
+  <div class="login-card">
+    <h2>Нэвтрэх</h2>
+    <form onsubmit="adminLogin(event)">
+      <input type="text" id="username" placeholder="admin" required />
+      <input type="password" id="password" placeholder="••••••" required />
+      <button type="submit">Нэвтрэх</button>
+    </form>
+    <p id="error-msg" class="error-msg"></p>
+  </div>
+
+  <script>
+    // Redirect if already logged in
+    if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+      window.location.href = 'dashboard.html';
+    }
+
+    function adminLogin(e) {
+      e.preventDefault();
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+
+      // Simple credential check (username: admin, password: admin123)
+      if (user === 'admin' && pass === 'admin123') {
+        sessionStorage.setItem('adminLoggedIn', 'true');
+        window.location.href = 'dashboard.html';
+      } else {
+        document.getElementById('error-msg').textContent = 'Нэвтрэх нэр эсвэл нууц үг буруу байна.';
+      }
+    }
+  </script>
+</body>
+</html>

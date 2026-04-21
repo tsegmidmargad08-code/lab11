@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Цэс удирдах</title>
+  <link rel="stylesheet" href="../css/admin.css"/>
+</head>
+<body class="menu-page">
+
+  <div class="menu-container">
+    <h2>Цэс нэмэх</h2>
+
+    <form onsubmit="addMenu(event)" class="menu-form">
+      <input type="text" id="menuName" placeholder="Цэсний нэр" required />
+      <input type="url"  id="menuLink" placeholder="Цэсний холбоос" required />
+      <button type="submit">Нэмэх</button>
+    </form>
+
+    <h3>Цэсүүд</h3>
+    <table class="menu-table">
+      <thead>
+        <tr>
+          <th>Цэсний нэр</th>
+          <th>Холбоос</th>
+          <th>Үйлдэл</th>
+        </tr>
+      </thead>
+      <tbody id="menuTableBody">
+        <!-- Dynamic rows -->
+      </tbody>
+    </table>
+
+    <div class="back-link">
+      <a href="dashboard.html">← Буцах</a>
+    </div>
+  </div>
+
+  <script>
+    if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
+      window.location.href = 'index.html';
+    }
+
+    let menus = JSON.parse(localStorage.getItem('menus') || '[]');
+
+    function renderMenus() {
+      const tbody = document.getElementById('menuTableBody');
+      if (menus.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#999;">Цэс байхгүй байна</td></tr>';
+        return;
+      }
+      tbody.innerHTML = menus.map((m, i) => `
+        <tr>
+          <td>${m.name}</td>
+          <td>${m.link}</td>
+          <td><button class="btn-delete" onclick="deleteMenu(${i})">Устгах</button></td>
+        </tr>
+      `).join('');
+    }
+
+    function addMenu(e) {
+      e.preventDefault();
+      const name = document.getElementById('menuName').value.trim();
+      const link = document.getElementById('menuLink').value.trim();
+      menus.push({ name, link });
+      localStorage.setItem('menus', JSON.stringify(menus));
+      e.target.reset();
+      renderMenus();
+    }
+
+    function deleteMenu(index) {
+      if (confirm('Энэ цэсийг устгах уу?')) {
+        menus.splice(index, 1);
+        localStorage.setItem('menus', JSON.stringify(menus));
+        renderMenus();
+      }
+    }
+
+    renderMenus();
+  </script>
+</body>
+</html>

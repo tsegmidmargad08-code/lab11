@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Админ удирдлага</title>
+  <link rel="stylesheet" href="../css/admin.css"/>
+</head>
+<body class="dashboard-page">
+
+  <div class="dashboard-card">
+    <h1>Админ удирдлага</h1>
+    <nav class="dashboard-nav">
+      <a href="menu.html">Цэс удирдах</a>
+      <a href="news.html">Мэдээ удирдах</a>
+      <a href="../index.html">Гарах</a>
+    </nav>
+  </div>
+
+  <script>
+    if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>

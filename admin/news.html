@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Мэдээ удирдах</title>
+  <link rel="stylesheet" href="../css/admin.css"/>
+</head>
+<body class="menu-page">
+
+  <div class="menu-container">
+    <h2>Мэдээ нэмэх</h2>
+
+    <form onsubmit="addNews(event)" class="menu-form">
+      <input type="text" id="newsTitle" placeholder="Мэдээний гарчиг" required />
+      <textarea id="newsBody" placeholder="Мэдээний агуулга" rows="3" required></textarea>
+      <button type="submit">Нэмэх</button>
+    </form>
+
+    <h3>Мэдээнүүд</h3>
+    <table class="menu-table">
+      <thead>
+        <tr>
+          <th>Гарчиг</th>
+          <th>Агуулга</th>
+          <th>Үйлдэл</th>
+        </tr>
+      </thead>
+      <tbody id="newsTableBody"></tbody>
+    </table>
+
+    <div class="back-link">
+      <a href="dashboard.html">← Буцах</a>
+    </div>
+  </div>
+
+  <script>
+    if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
+      window.location.href = 'index.html';
+    }
+
+    let newsItems = JSON.parse(localStorage.getItem('newsItems') || '[]');
+
+    function renderNews() {
+      const tbody = document.getElementById('newsTableBody');
+      if (newsItems.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#999;">Мэдээ байхгүй байна</td></tr>';
+        return;
+      }
+      tbody.innerHTML = newsItems.map((n, i) => `
+        <tr>
+          <td>${n.title}</td>
+          <td>${n.body.substring(0, 50)}${n.body.length > 50 ? '...' : ''}</td>
+          <td><button class="btn-delete" onclick="deleteNews(${i})">Устгах</button></td>
+        </tr>
+      `).join('');
+    }
+
+    function addNews(e) {
+      e.preventDefault();
+      const title = document.getElementById('newsTitle').value.trim();
+      const body = document.getElementById('newsBody').value.trim();
+      newsItems.push({ title, body });
+      localStorage.setItem('newsItems', JSON.stringify(newsItems));
+      e.target.reset();
+      renderNews();
+    }
+
+    function deleteNews(index) {
+      if (confirm('Энэ мэдээг устгах уу?')) {
+        newsItems.splice(index, 1);
+        localStorage.setItem('newsItems', JSON.stringify(newsItems));
+        renderNews();
+      }
+    }
+
+    renderNews();
+  </script>
+</body>
+</html>
